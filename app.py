@@ -80,7 +80,7 @@ def addSalesData():
         conn.close()
         return jsonify("Rows Added")
     except:
-        return jsonify({"error":"Operation Falied"})
+        return jsonify({"error":"Operations Falied"})
 
 
 @app.route("/leadTime")
