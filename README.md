@@ -4,35 +4,37 @@
 
 # Project Setup Instructions
 
-- Clone this repository:
+1. Clone this repository:
 
 ```bash
     git clone https://github.com/prasadnitesh202/Sales-API.git
 ```
 
-- Install virtualenv(Optional)
+2. Install virtualenv(Optional)
 
 ```bash
    pip install virtualenv
 ```
 
-- Activate the virtual environment
+3. Activate the virtual environment(Optional)
 
+```
   https://docs.python.org/3/tutorial/venv.html
+```
 
-- Install the requirements from requirements.txt
+4. Install the requirements from requirements.txt
 
 ```bash
     pip install -r requirements.txt
 ```
 
-- Run the application from project directory
+5. Run the application from project directory
 
 ```
     flask run
 ```
 
-- It will start the application at port 5000
+- ## It will start the application at port 5000
 
 <br>
 
