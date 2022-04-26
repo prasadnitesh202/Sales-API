@@ -145,3 +145,45 @@ Group By product_id,branch_id,supplier_id""")
     print(res)
 
     return jsonify(res)
+    
+@app.route("/variance")
+def calcVariance():
+    conn = db_connection()
+    cursor = conn.execute("""Select *,Cast ((
+    JulianDay(ReceivedDate) - JulianDay(OrderedDate)
+) As Integer) AS leadTime,SUM((Cast ((
+    JulianDay(ReceivedDate) - JulianDay(OrderedDate)
+) As Integer)-(SELECT AVG(Cast ((
+    JulianDay(ReceivedDate) - JulianDay(OrderedDate)
+) As Integer)) FROM PurchaseOrders))*
+           (Cast ((
+    JulianDay(ReceivedDate) - JulianDay(OrderedDate)
+) As Integer)-(SELECT AVG(Cast ((
+    JulianDay(ReceivedDate) - JulianDay(OrderedDate)
+) As Integer)) FROM PurchaseOrders)) ) / (COUNT(Cast ((
+    JulianDay(ReceivedDate) - JulianDay(OrderedDate)
+) As Integer))-1) AS Variance
+from
+PurchaseOrders
+Group By product_id,branch_id,supplier_id""")
+    result = cursor.fetchall()
+    conn.close()
+    temp = {}
+    res = []
+    for row in result:
+        temp["purchaseOrderId"] = row[0]
+        temp["date"] = row[1]
+        temp["product_id"] = row[2]
+        temp["branch_id"] = row[3]
+        temp["supplier_id"] = row[4]
+        temp["OrderedQuantity"] = row[5]
+        temp["ReceivedQuantity"] = row[6]
+        temp["OrderedDate"] = row[7]
+        temp["ReceivedDate"] = row[8]
+        temp["leadTime"] = row[9]
+        temp["variance"] = row[10]
+        res.append(temp)
+        temp = {}
+    print(res)
+
+    return jsonify(res)

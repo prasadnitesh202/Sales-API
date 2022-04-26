@@ -82,7 +82,7 @@
 
 ```
 
-- GET /averageLeadTime
+- GET /variance
 
 ```
     Calculates lead time variance for each Product ID-Branch ID-Supplier ID combination.
